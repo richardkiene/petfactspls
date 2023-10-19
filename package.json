@@ -1,0 +1,19 @@
+{
+  "name": "petfactspls",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:mikesir87/petfactspls.git",
+  "author": "Michael Irwin <mikesir87@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "pg": "8.11.3"
+  },
+  "devDependencies": {
+    "nodemon": "3.0.1"
+  }
+}

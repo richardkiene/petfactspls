@@ -1,0 +1,23 @@
+.navbar {
+  background: linear-gradient(90deg, #00084D 0%, #1D63ED 100%);
+}
+
+.list-group.top-listing .list-group-item:first-child {
+  background-image: linear-gradient(to right, #FFD700, #e5f2fc 50%);
+}
+
+.list-group.top-listing .list-group-item:nth-child(2) {
+  background-image: linear-gradient(to right, #C0C0C0, #e5f2fc 50%);
+}
+
+
+.list-group.top-listing .list-group-item:nth-child(3) {
+  background-image: linear-gradient(to right, #B08D57, #e5f2fc 50%);
+}
+
+h1, h2, h3, .h1, .h2, .h3 {
+  background: linear-gradient(90deg, #00084D 0%, #1D63ED 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

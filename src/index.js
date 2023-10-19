@@ -1,21 +1,26 @@
-const fetch = require("node-fetch");
+const express = require("express");
+const { engine } = require("express-handlebars");
+const { Pool } = require("pg");
 
-const readline = require('readline/promises').createInterface({
-  input: process.stdin,
-  output: process.stdout
+const app = express();
+app.use(express.static(__dirname + "/static"));
+app.engine("handlebars", engine());
+app.set("view engine", "handlebars");
+app.set("views", __dirname + "/templates");
+
+const dbPool = new Pool({
+  host: process.env.POSTGRES_HOST ??= "localhost",
+  user: process.env.POSTGRES_USER ??= "postgres",
+  password: process.env.POSTGRES_PASSWORD ??= "secret",
+  database: process.env.POSTGRES_DATABASE ??= "app",
 });
 
-readline.question('Would you like a dog or cat fact? ')
-  .then((response) => {
-    if (response.toLowerCase() === "cat") {
-      console.log("Too bad!");
-    }
+app.get("/", async (req, res) => {
+  const result = await dbPool.query("SELECT fact FROM facts ORDER BY RANDOM() LIMIT 1");
 
-    fetch("https://dog-api.kinduff.com/api/facts")
-      .then(r => r.json())
-      .then(({ facts }) => {
-        console.log(`Your fact: ${facts[0]}`);
-      });
+  res.render("home", { fact: result.rows[0].fact ??= "Test" });
+});
 
-    readline.close();
-  });
+app.listen(3000, () => console.log("Listening on port 3000"));
+process.on("SIGINT", () => process.exit());
+process.on("SIGTERM", () => process.exit());

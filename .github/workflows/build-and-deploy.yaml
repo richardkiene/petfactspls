@@ -51,4 +51,5 @@ jobs:
       - uses: tale/kubectl-action@v1
         with:
           base64-kube-config: ${{ secrets.KUBE_CONFIG }}
+      - run: kubectl get pods -n petfactspls-prod
       - run: helm upgrade petfactspls --namespace=petfactspls-prod --set appEnv=prod --set image=${{ secrets.DOCKERHUB_USERNAME}}/petfactspls:${{ github.sha }} ./helm-chart

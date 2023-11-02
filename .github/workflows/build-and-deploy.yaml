@@ -1,7 +1,7 @@
 name: Build and push image
 on: ["push"]
 jobs:
-  Build image:
+  build-image:
     runs-on: ubuntu-latest
     steps:
       -
@@ -24,7 +24,7 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/petfactspls:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/petfactspls:${{ github.sha }}
-  Deploy to staging:
+  deploy-to-staging:
     if: github.ref != 'refs/heads/main'
     runs-on: ubuntu:latest
     steps:
@@ -36,7 +36,7 @@ jobs:
           base64-kube-config: ${{ secrets.KUBE_CONFIG }}
       - run: helm upgrade petfactspls --namespace=petfactspls-staging --set appEnv=staging --set image=${{ secrets.DOCKERHUB_USERNAME}}/petfactspls:${{ github.sha }} ./helm-chart
 
-  Deploy to prod:
+  deploy-to-prod:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu:latest
     steps:

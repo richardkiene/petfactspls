@@ -1,3 +1,7 @@
+body {
+  background-color: pink !important;
+}
+
 .navbar {
   background: linear-gradient(90deg, #00084D 0%, #1D63ED 100%);
 }

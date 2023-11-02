@@ -25,6 +25,7 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/petfactspls:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/petfactspls:${{ github.sha }}
   deploy-to-staging:
+    needs: build-image
     if: github.ref != 'refs/heads/main'
     runs-on: ubuntu:latest
     steps:
@@ -37,6 +38,7 @@ jobs:
       - run: helm upgrade petfactspls --namespace=petfactspls-staging --set appEnv=staging --set image=${{ secrets.DOCKERHUB_USERNAME}}/petfactspls:${{ github.sha }} ./helm-chart
 
   deploy-to-prod:
+    needs: build-image
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu:latest
     steps:

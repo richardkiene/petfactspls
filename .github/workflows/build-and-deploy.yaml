@@ -24,7 +24,7 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/petfactspls:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/petfactspls:${{ github.sha }}
-  Deploy to prod:
+  Deploy to staging:
     if: github.ref != 'refs/heads/main'
     runs-on: ubuntu:latest
     steps:
